@@ -1,0 +1,17 @@
+%form.payment-gateway-form{ action: request.params.target_url, method: "post" }
+  %input#version{         name: "version",        type: "hidden", value: request.params.version }
+  %input#tpe{             name: "TPE",            type: "hidden", value: request.params.tpe }
+  %input#date{            name: "date",           type: "hidden", value: request.params.date }
+  %input#montant{         name: "montant",        type: "hidden", value: request.params.montant }
+  %input#reference{       name: "reference",      type: "hidden", value: request.params.reference }
+  %input#mac{             name: "MAC",            type: "hidden", value: request.params.hmac_token }
+  %input#url-retour{      name: "url_retour",     type: "hidden", value: request.params.url_retour }
+  %input#url-retour-ok{   name: "url_retour_ok",  type: "hidden", value: request.params.url_retour_ok }
+  %input#url-retour-err{  name: "url_retour_err", type: "hidden", value: request.params.url_retour_err }
+  %input#lgue{            name: "lgue",           type: "hidden", value: request.params.lgue }
+  %input#societe{         name: "societe",        type: "hidden", value: request.params.societe }
+  %input#texte-libre{     name: "texte-libre",    type: "hidden", value: request.params.texte_libre }
+  %input#mail{            name: "mail",           type: "hidden", value: request.params.mail }
+
+  %button.btn.btn-primary{ name: "submit_cic_payment_form", type: "submit" }
+    = t('stall.payments.gateway.pay')
