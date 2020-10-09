@@ -1,15 +1,11 @@
 module Stall
-  module Cmcic
+  module KuroneKoyamato
     class Gateway < Stall::Payments::Gateway
-      register :cmcic
+      register :kurone_koyamato
 
-      # Hmac key calculated with the js calculator given by CIC
-      class_attribute :hmac_key
-      # TPE number
-      class_attribute :tpe
-      # Merchant name
-      class_attribute :societe
-
+      # Hmac key calculated with the js calculator given by Kurone Koyamato
+      class_attribute :trader_code
+      
       # Test or production mode, default to false, changes the payment
       # gateway target URL
       class_attribute :test_mode
@@ -28,19 +24,19 @@ module Stall
       end
 
       def self.fake_payment_notification_for(cart)
-        Stall::Cmcic::FakeGatewayPaymentNotification.new(cart)
+        Stall::KuroneKoyamato::FakeGatewayPaymentNotification.new(cart)
       end
 
       def target_url
         if test_mode
-          "https://paiement.creditmutuel.fr/test/paiement.cgi"
+          "https://ptwebcollect.jp/test_gateway/settleSelectAction.gw"
         else
-          "https://paiement.creditmutuel.fr/paiement.cgi"
+          "https://TODO.gw"
         end
       end
 
       class Request
-        include Stall::Cmcic::Utils
+        include Stall::KuroneKoyamato::Utils
 
         attr_reader :cart
 
@@ -51,11 +47,11 @@ module Stall
         end
 
         def payment_form_partial_path
-          'stall/cmcic/payment_form'
+          'stall/kurone_koyamato/payment_form'
         end
 
         def params
-          @params ||= Stall::Cmcic::CicPayment.new(gateway, parse_urls: true).request(
+          @params ||= Stall::KuroneKoyamato::Payment.new(gateway, parse_urls: true).request(
             montant: price_with_currency(cart.total_price),
             reference: gateway.transaction_id,
             texte_libre: cart.reference
@@ -63,7 +59,7 @@ module Stall
         end
 
         def gateway
-          @gateway = Stall::Cmcic::Gateway.new(cart)
+          @gateway = Stall::KuroneKoyamato::Gateway.new(cart)
         end
       end
 
@@ -95,13 +91,13 @@ module Stall
         end
 
         def gateway
-          @gateway = Stall::Cmcic::Gateway
+          @gateway = Stall::KuroneKoyamato::Gateway
         end
 
         private
 
         def response
-          @response ||= Stall::Cmcic::CicPayment.new(gateway).response(
+          @response ||= Stall::KuroneKoyamato::Payment.new(gateway).response(
             Rack::Utils.parse_nested_query(request.raw_post)
           )
         end

@@ -1,5 +1,5 @@
 module Stall
-  module Cmcic
+  module KuroneKoyamato
     module Utils
       protected
 

@@ -1,7 +1,7 @@
 module Stall
-  module Cmcic
+  module KuroneKoyamato
     class FakeGatewayPaymentNotification < Stall::Payments::FakeGatewayPaymentNotification
-      include Stall::Cmcic::Utils
+      include Stall::KuroneKoyamato::Utils
 
       delegate :currency, to: :cart
 
@@ -20,7 +20,7 @@ module Stall
 
       def options
         @options ||= {
-          'TPE' => Stall::Cmcic::Gateway.tpe,
+          'TPE' => Stall::KuroneKoyamato::Gateway.tpe,
           'date' => format_date(Time.now),
           'montant' => price_with_currency(cart.total_price),
           'reference' => transaction_id,
@@ -44,11 +44,11 @@ module Stall
       end
 
       def bank_mac_key
-        @bank_mac_key ||= cic_payment.response_mac(options)
+        @bank_mac_key ||= kurone_payment.response_mac(options)
       end
 
-      def cic_payment
-        @cic_payment ||= Stall::Cmcic::CicPayment.new(gateway)
+      def kurone_payment
+        @kurone_payment ||= Stall::KuroneKoyamato::Payment.new(gateway)
       end
     end
   end

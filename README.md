@@ -3,15 +3,12 @@
 This gem allows integrating your [Stall](https://github.com/stall-rails/stall)
 e-commerce app with the Kurone Koyamato online payment gateway solution.
 
-This gem is just the glue between [Stall](https://github.com/stall-rails/stall)
-and the [cic_payment](https://github.com/Kulgar/cic_payment/) gem.
-
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'stall-cmcic'
+gem 'stall-kurone-koyamato'
 ```
 
 And then execute:
@@ -20,11 +17,11 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install stall-cmcic
+    $ gem install stall-kurone-koyamato
 
 Then use the install generator to copy the config template file :
 
-    $ rails generator stall:cmcic:install
+    $ rails generator stall:kurone-koyamato:install
 
 
 ## Usage
@@ -45,7 +42,7 @@ gateway in test mode.
 When you're ready to switch to production, juste set the following environment
 variable :
 
-- `CMCIC_PRODUCTION_MODE=true`
+- `KURONE_KOYAMATO_PRODUCTION_MODE=true`
 
 Just like the other settings, you can change the way it's configured in the
 stall initializer file.
@@ -55,7 +52,7 @@ stall initializer file.
 You need to provide a payment response URL to your bank which will be :
 
 ```text
-<http|http>://<YOUR_DOMAIN>/cmcic/payment/notify
+<http|http>://<YOUR_DOMAIN>/kurone/payment/notify
 ```
 
 You can find the route with :
