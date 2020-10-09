@@ -1,14 +1,39 @@
 module Stall
   module KuroneKoyamato
-    class Payment
+   class Payment < PaymentSettings
+      cattr_accessor  :trs_map, 
+                      :version, 
+                      :hmac_key, 
+                      :trader_code, 
+                      :societe, 
+                      :url_retour, 
+                      :url_retour_ok, 
+                      :url_retour_err, 
+                      :societe,
+                      :regular_order_no,
+                      :order_no,
+                      :goods_name,
+                      :settle_price,
+                      :buyer_name_kanji,
+                      :buyer_tel,
+                      :buyer_email,
+                      :return_url,
+                      :option_service_code,
+                      :member_id,
+                      :authentication_key,
+                      :scheduled_shipping_date,
+                      :check_sum,
+                      :success_url,
+                      :failure_url,
+                      :cancel_url,
+                      :cycle_unit,
+                      :cycle_interval,
+                      :cycle_day,
+                      :target_url
 
-      cattr_accessor :target_url, :version, :hmac_key, :tpe, :societe, :url_retour, :url_retour_ok, :url_retour_err, :societe
       attr_accessor :date, :montant, :reference, :texte_libre, :lgue, :mail
     
-      @@tpe            = ""
-      @@version        = ""
-      @@societe        = ""
-      @@hmac_key       = ""
+      @@trader_code            = ""
       @@target_url     = ""
       @@url_retour     = ""
       @@url_retour_ok  = ""
@@ -20,10 +45,7 @@ module Stall
       # configuration instead
       #
       def initialize(gateway, parse_urls: false)
-        @@tpe            = gateway.tpe
-        @@version        = gateway.version
-        @@societe        = gateway.societe
-        @@hmac_key       = gateway.hmac_key
+        @@trader_code            = gateway.trader_code
 
         # Handle initialization from gateway class and not a gateway instance
         if parse_urls

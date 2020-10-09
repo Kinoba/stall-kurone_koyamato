@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-require 'rubygems'
-require 'bundler'
-Bundler.require(:default, :development, :test)
-require 'rails'
-require 'haml-rails'
 require 'stall'
 
 module Stall

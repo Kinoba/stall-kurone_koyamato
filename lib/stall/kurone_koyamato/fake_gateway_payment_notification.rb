@@ -20,7 +20,6 @@ module Stall
 
       def options
         @options ||= {
-          'TPE' => Stall::KuroneKoyamato::Gateway.tpe,
           'date' => format_date(Time.now),
           'montant' => price_with_currency(cart.total_price),
           'reference' => transaction_id,
