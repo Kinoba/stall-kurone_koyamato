@@ -20,6 +20,7 @@ module Stall
 
       def options
         @options ||= {
+          'TRS_MAP' => 'V_W02',
           'date' => format_date(Time.now),
           'montant' => price_with_currency(cart.total_price),
           'reference' => transaction_id,

@@ -1,19 +1,25 @@
+# frozen_string_literal: true
+
 module Stall
   module KuroneKoyamato
+    # Payment gateway for Kurone Koyamato
     class Gateway < Stall::Payments::Gateway
       register :kurone_koyamato
 
       # Hmac key calculated with the js calculator given by Kurone Koyamato
       class_attribute :trader_code
-      
+      class_attribute :access_key
+      class_attribute :authentication_key
+      class_attribute :member_id
+
       # Test or production mode, default to false, changes the payment
       # gateway target URL
       class_attribute :test_mode
       self.test_mode = !Rails.env.production?
 
-      # Remote API version, should not change any time soon ...
+      # TODO: Not sure what version is yet...
       class_attribute :version
-      self.version = "3.0"
+      self.version = '1.0'
 
       def self.request(cart)
         Request.new(cart)
@@ -29,9 +35,10 @@ module Stall
 
       def target_url
         if test_mode
-          "https://ptwebcollect.jp/test_gateway/settleSelectAction.gw"
+          'https://ptwebcollect.jp/test_gateway/settleSelectAction.gw'
         else
-          "https://TODO.gw"
+          # TODO: Change for real url
+          'https://TODO.gw'
         end
       end
 

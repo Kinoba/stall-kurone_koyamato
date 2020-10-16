@@ -1,25 +1,28 @@
+= request.params.inspect
+= request.params.trs_map
+
 %form.payment-gateway-form{ action: request.params.target_url, method: "post" }
-  %input#trs-map{             name: "TRS_MAP",        type: "hidden", value: request.params.trs_map }
-  %input#trader-code{         name: "trader_code",        type: "hidden", value: request.params.trader_code }
-  %input#regular-order-no{    name: "regular_order_no",        type: "hidden", value: request.params.regular_order_no }
-  %input#order-no{            name: "order_no",        type: "hidden", value: request.params.order_no }
-  %input#goods-name{          name: "goods_name",        type: "hidden", value: request.params.goods_name }
-  %input#settle-price{        name: "settle_price",        type: "hidden", value: request.params.settle_price }
-  %input#buyer-name-kanji{    name: "buyer_name_kanji",        type: "hidden", value: request.params.buyer_name_kanji }
-  %input#buyer-tel{    name: "buyer_tel",        type: "hidden", value: request.params.buyer_tel }
-  %input#buyer-email{    name: "buyer_email",        type: "hidden", value: request.params.buyer_email }
-  %input#return-url{    name: "return_url",        type: "hidden", value: request.params.return_url }
-  %input#option-service-code{    name: "option_service_code",        type: "hidden", value: request.params.option_service_code }
-  %input#member-id{    name: "member_id",        type: "hidden", value: request.params.member_id }
-  %input#authentication-key{    name: "authentication_key",        type: "hidden", value: request.params.authentication_key }
-  %input#scheduled-shipping-date{    name: "scheduled_shipping_date",        type: "hidden", value: request.params.scheduled_shipping_date }
-  %input#check-sum{    name: "check_sum",        type: "hidden", value: request.params.check_sum }
-  %input#success-url{    name: "success_url",        type: "hidden", value: request.params.success_url }
-  %input#failure-url{    name: "failure_url",        type: "hidden", value: request.params.failure_url }
-  %input#cancel-url{    name: "cancel_url",        type: "hidden", value: request.params.cancel_url }
-  %input#cycle-unit{    name: "cycle_unit",        type: "hidden", value: request.params.cycle_unit }
-  %input#cycle-interval{    name: "cycle_interval",        type: "hidden", value: request.params.cycle_interval }
-  %input#cycle-day{    name: "cycle_day",        type: "hidden", value: request.params.cycle_day }
+  %input#trs-map{                 name: "TRS_MAP",                  type: "hidden", value: request.params.trs_map }
+  %input#trader-code{             name: "trader_code",              type: "hidden", value: request.params.trader_code }
+  %input#regular-order-no{        name: "regular_order_no",         type: "hidden", value: request.params.regular_order_no }
+  %input#order-no{                name: "order_no",                 type: "hidden", value: request.params.order_no }
+  %input#goods-name{              name: "goods_name",               type: "hidden", value: request.params.goods_name }
+  %input#settle-price{            name: "settle_price",             type: "hidden", value: request.params.settle_price }
+  %input#buyer-name-kanji{        name: "buyer_name_kanji",         type: "hidden", value: request.params.buyer_name_kanji }
+  %input#buyer-tel{               name: "buyer_tel",                type: "hidden", value: request.params.buyer_tel }
+  %input#buyer-email{             name: "buyer_email",              type: "hidden", value: request.params.buyer_email }
+  %input#return-url{              name: "return_url",               type: "hidden", value: request.params.return_url }
+  %input#option-service-code{     name: "option_service_code",      type: "hidden", value: request.params.option_service_code }
+  %input#member-id{               name: "member_id",                type: "hidden", value: request.params.member_id }
+  %input#authentication-key{      name: "authentication_key",       type: "hidden", value: request.params.authentication_key }
+  %input#scheduled-shipping-date{ name: "scheduled_shipping_date",  type: "hidden", value: request.params.scheduled_shipping_date }
+  %input#check-sum{               name: "check_sum",                type: "hidden", value: request.params.checksum }
+  %input#success-url{             name: "success_url",              type: "hidden", value: request.params.success_url }
+  %input#failure-url{             name: "failure_url",              type: "hidden", value: request.params.failure_url }
+  %input#cancel-url{              name: "cancel_url",               type: "hidden", value: request.params.cancel_url }
+  %input#cycle-unit{              name: "cycle_unit",               type: "hidden", value: request.params.cycle_unit }
+  %input#cycle-interval{          name: "cycle_interval",           type: "hidden", value: request.params.cycle_interval }
+  %input#cycle-day{               name: "cycle_day",                type: "hidden", value: request.params.cycle_day }
 
   %button.btn.btn-primary{ name: "submit_kurone_payment_form", type: "submit" }
     = t('stall.payments.gateway.pay')
