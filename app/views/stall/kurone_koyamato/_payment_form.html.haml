@@ -23,6 +23,7 @@
   %input#cycle-unit{              name: "cycle_unit",               type: "hidden", value: request.params.cycle_unit }
   %input#cycle-interval{          name: "cycle_interval",           type: "hidden", value: request.params.cycle_interval }
   %input#cycle-day{               name: "cycle_day",                type: "hidden", value: request.params.cycle_day }
+  %input#payment-method{          name: "payment_method",           type: "hidden", value: request.params.payment_method }
 
   %button.btn.btn-primary{ name: "submit_kurone_payment_form", type: "submit" }
     = t('stall.payments.gateway.pay')
