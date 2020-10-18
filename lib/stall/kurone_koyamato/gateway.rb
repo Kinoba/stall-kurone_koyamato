@@ -59,11 +59,13 @@ module Stall
 
         def params
           @params ||= Stall::KuroneKoyamato::Payment.new(gateway, parse_urls: true).request(
-            settle_price: price_with_currency(cart.total_price),
+            settle_price: cart.total_price,
             goods_name: cart.line_items.first.name,
-            order_no: gateway.transaction_id,
+            order_no: gateway.transaction_id.gsub('ESHOP-', ''),
             regular_order_no: cart.reference,
-            buyer_tel: cart.customer.shipping_address.phone
+            buyer_tel: cart.customer.shipping_address.phone,
+            buyer_email: cart.customer.email,
+            buyer_name: "#{cart.customer.shipping_address.first_name} #{cart.customer.shipping_address.last_name}"
           )
         end
 

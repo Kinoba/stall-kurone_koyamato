@@ -6,6 +6,7 @@ module Stall
     class Payment < Stall::KuroneKoyamato::PaymentSettings
       TRS_MAP_FIXED_VALUE = 'V_W02'
       CREDIT_CARD_PAYMENT_METHOD = 0
+      ONE_TIME_PAYMENT = 0
 
       cattr_accessor  :version,
                       :hmac_key,
@@ -18,27 +19,37 @@ module Stall
                       :success_url,
                       :failure_url,
                       :cancel_url,
+                      :return_url,
                       :cycle_unit,
                       :cycle_interval,
                       :cycle_day,
                       :target_url,
-                      :payment_method
+                      :payment_method,
+                      :option_service_code
 
       attr_accessor :date, 
                     :montant, 
                     :settle_price,
-                    :regular_order_no,
                     :order_no,
                     :goods_name,
+                    :buyer_name,
                     :buyer_name_kanji,
                     :buyer_tel,
                     :buyer_email,
-                    :return_url,
                     :option_service_code
 
-
-      @@trader_code            = ""
-      @@target_url     = ""
+      @@access_key             = ''
+      @@authentication_key     = ''
+      @@member_id              = ''
+      @@trader_code            = ''
+      @@target_url             = ''
+      @@return_url             = ''
+      @@payment_method         = ''
+      @@trs_map                = ''
+      @@option_service_code    = ''
+      @@cycle_unit             = ''
+      @@cycle_interval         = ''
+      @@cycle_day              = ''
 
       # Override constructor to avoid loading a YAML file and use gateway's dynamic
       # configuration instead
@@ -51,6 +62,7 @@ module Stall
         # 0 is for credit card payments
         @@payment_method         = CREDIT_CARD_PAYMENT_METHOD
         @@trs_map                = TRS_MAP_FIXED_VALUE
+        @@option_service_code    = ONE_TIME_PAYMENT
 
         @@cycle_unit = 0
         @@cycle_interval = 1
@@ -62,26 +74,24 @@ module Stall
           @@cancel_url     = gateway.payment_urls.payment_failure_return_url
           @@success_url  = gateway.payment_urls.payment_success_return_url
           @@failure_url = gateway.payment_urls.payment_failure_return_url
+          @@return_url = gateway.payment_urls.payment_notification_url
         end
       end
 
       def request(payment)
-        params = self.load_params(payment)
+        params = load_params(payment)
 
-        @date        = Time.now.strftime(self.date_format)
-        @settle_price     = params[:settle_price]
+        @settle_price = params[:settle_price]
         @order_no   = params[:order_no]
-        
         @goods_name = params[:goods_name]
-        @regular_order_no = '1000'
 
         @buyer_tel = params[:buyer_tel]
+        @buyer_email = params[:buyer_email]
+        @buyer_name = params[:buyer_name]
+        @buyer_name_kanji = params[:buyer_name_kanji]
+        @scheduled_shipping_date = params[:scheduled_shipping_date]
 
-        @texte_libre = params[:texte_libre]
-        @lgue        = params[:lgue]
-        @mail        = params[:mail]
-
-        return self
+        self
       end
 
       def response(params)
@@ -99,14 +109,36 @@ module Stall
         end
       end
 
-      def checksum
-        Digest::SHA256.hexdigest("#{@member_id}#{@authentication_key}#{@member_id}")
+      # Override this method to avoid implicit "EUR" currency appending
+      def required_params(payment)
+        @settings ||= {}
+
+        [:settle_price, :order_no, :goods_name].each do |key|
+          if (value = payment[key])
+            @settings.update(key => value)
+          else
+            raise "KuronePayment error ! Missing required parameter :#{ key }"
+          end
+        end
       end
 
+      def optionnal_params(payment)
+        @settings ||= {}
+        @settings.update(buyer_tel: (payment[:buyer_tel] || ''))
+        @settings.update(buyer_email: (payment[:buyer_email] || ''))
+        @settings.update(buyer_name: (payment[:buyer_name] || ''))
+        @settings.update(buyer_name_kanji: (payment[:buyer_name_kanji] || ''))
+        @settings.update(scheduled_shipping_date: (payment[:scheduled_shipping_date] || scheduled_shipping_date))
+      end
+      
+      def checksum
+        Digest::SHA256.hexdigest("#{@@member_id}#{@@authentication_key}#{@@member_id}")
+      end
+      
       def scheduled_shipping_date
         (Time.zone.now + 2.weeks).strftime(date_format)
       end
-  
+      
       # === response_mac(params)
       # This function is used to verify that the sent MAC by CIC is the one expected.
       # It calculates the hmac from the correct chain of params. 
@@ -176,18 +208,6 @@ module Stall
         hmac_sha1(usable_key(self.hmac_key), chain).downcase
       end
 
-      # Override this method to avoid implicit "EUR" currency appending
-      def required_params(payment)
-        @settings ||= {}
-
-        [:settle_price, :order_no, :goods_name, :buyer_tel].each do |key|
-          if (value = payment[key])
-            @settings.update(key => value)
-          else
-            raise "KuronePayment error ! Missing required parameter :#{ key }"
-          end
-        end
-      end
 
       protected
 
