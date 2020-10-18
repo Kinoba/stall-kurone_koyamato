@@ -37,8 +37,7 @@ module Stall
         if test_mode
           'https://ptwebcollect.jp/test_gateway/settleSelectAction.gw'
         else
-          # TODO: Change for real url
-          'https://TODO.gw'
+          'https://payment.kuronekoyamato.co.jp/webcollect/settleSelectAction.gw'
         end
       end
 
@@ -65,7 +64,7 @@ module Stall
             regular_order_no: cart.reference,
             buyer_tel: cart.customer.shipping_address.phone,
             buyer_email: cart.customer.email,
-            buyer_name: "#{cart.customer.shipping_address.first_name} #{cart.customer.shipping_address.last_name}"
+            buyer_name_kanji: "#{cart.customer.shipping_address.first_name} #{cart.customer.shipping_address.last_name}"
           )
         end
 

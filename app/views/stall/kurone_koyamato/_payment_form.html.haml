@@ -4,24 +4,23 @@
   %input#order-no{                name: "order_no",                 type: "text", value: request.params.order_no }
   %input#goods-name{              name: "goods_name",               type: "text", value: request.params.goods_name }
   %input#settle-price{            name: "settle_price",             type: "text", value: request.params.settle_price }
-  %input#buyer-name{              name: "buyer_name",               type: "text", value: request.params.buyer_name }
+  %input#buyer-name{              name: "buyer_name_kana",          type: "text", value: request.params.buyer_name_kana }
   %input#buyer-name-kanji{        name: "buyer_name_kanji",         type: "text", value: request.params.buyer_name_kanji }
   %input#buyer-tel{               name: "buyer_tel",                type: "text", value: request.params.buyer_tel }
   %input#buyer-email{             name: "buyer_email",              type: "text", value: request.params.buyer_email }
   %input#return-url{              name: "return_url",               type: "text", value: request.params.return_url }
-  %input#option-service-code{     name: "option_service_code",      type: "text", value: request.params.option_service_code }
-  %input#member-id{               name: "member_id",                type: "text", value: request.params.member_id }
-  %input#authentication-key{      name: "authentication_key",       type: "text", value: request.params.authentication_key }
-  %input#scheduled-shipping-date{ name: "scheduled_shipping_date",  type: "text", value: request.params.scheduled_shipping_date }
-  %input#check-sum{               name: "check_sum",                type: "text", value: request.params.checksum }
+  -# %input#member-id{               name: "member_id",                type: "text", value: request.params.member_id }
+  -# %input#authentication-key{      name: "authentication_key",       type: "text", value: request.params.authentication_key }
+  -# %input#scheduled-shipping-date{ name: "scheduled_shipping_date",  type: "text", value: request.params.scheduled_shipping_date }
+  -# %input#check-sum{               name: "check_sum",                type: "text", value: request.params.checksum }
   %input#success-url{             name: "success_url",              type: "text", value: request.params.success_url }
   %input#failure-url{             name: "failure_url",              type: "text", value: request.params.failure_url }
   %input#cancel-url{              name: "cancel_url",               type: "text", value: request.params.cancel_url }
-  %input#cycle-unit{              name: "cycle_unit",               type: "text", value: request.params.cycle_unit }
-  %input#cycle-interval{          name: "cycle_interval",           type: "text", value: request.params.cycle_interval }
-  %input#cycle-day{               name: "cycle_day",                type: "text", value: request.params.cycle_day }
+  -# %input#cycle-unit{              name: "cycle_unit",               type: "text", value: request.params.cycle_unit }
+  -# %input#cycle-interval{          name: "cycle_interval",           type: "text", value: request.params.cycle_interval }
+  -# %input#cycle-day{               name: "cycle_day",                type: "text", value: request.params.cycle_day }
   %input#payment-method{          name: "payment_method",           type: "text", value: request.params.payment_method }
-  %input#options-service-code{    name: "option_service_code",      type: "text", value: request.params.option_service_code }
+  -# %input#options-service-code{    name: "option_service_code",      type: "text", value: request.params.option_service_code }
 
   %button.btn.btn-primary{ name: "submit_kurone_payment_form", type: "submit" }
     = t('stall.payments.gateway.pay')
