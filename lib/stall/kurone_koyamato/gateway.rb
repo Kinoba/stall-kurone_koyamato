@@ -17,9 +17,8 @@ module Stall
       class_attribute :test_mode
       self.test_mode = !Rails.env.production?
 
-      # TODO: Not sure what version is yet...
       class_attribute :version
-      self.version = '1.0'
+      self.version = '1.9.1'
 
       def self.request(cart)
         Request.new(cart)
