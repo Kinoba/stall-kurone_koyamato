@@ -75,10 +75,6 @@ module Stall
       end
 
       def response(params)
-        p ''
-        p '______________________________________________________________________________'
-        p ''
-        p params
         case params['settle_result']
         when '0'
           params.update(success: false)

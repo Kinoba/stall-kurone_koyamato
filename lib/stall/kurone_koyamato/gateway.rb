@@ -97,7 +97,7 @@ module Stall
         end
 
         def cart
-          @cart ||= ProductList.find_by_reference(response['texte-libre'])
+          @cart ||= Cart.find_by_payment_transaction_id("ESHOP-#{response['order_no']}")
         end
 
         def gateway
@@ -113,7 +113,7 @@ module Stall
         end
 
         def return_code
-          if success? || (response['code-retour'].try(:downcase) == 'annulation')
+          if success? || (response['settle_result'].try(:downcase) == '0')
             '0'
           else
             '1'
