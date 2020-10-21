@@ -8,7 +8,7 @@ e-commerce app with the Kurone Koyamato online payment gateway solution.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'stall-kurone-koyamato'
+gem 'stall-kurone_koyamato'
 ```
 
 And then execute:
@@ -17,7 +17,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install stall-kurone-koyamato
+    $ gem install stall-kurone_koyamato
 
 Then use the install generator to copy the config template file :
 
@@ -32,11 +32,10 @@ that were added to the stall config initialize.
 By default, it is configured to fetch from the variables from the environment,
 so ideally, just create the following env vars :
 
-- `CMCIC_HMAC_KEY`
-- `CMCIC_TPE`
-- `CMCIC_SOCIETE`
+- `KURONE_ACCESS_KEY`
+- `KURONE_TRADER_ID`
 
-Restart your server, and you should now be able to use the CM-CIC payment
+Restart your server, and you should now be able to use the Kurone payment
 gateway in test mode.
 
 When you're ready to switch to production, juste set the following environment
@@ -63,7 +62,7 @@ rake routes | grep payment/notify
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/stall-rails/stall-cmcic.
+Bug reports and pull requests are welcome on GitHub at https://github.com/Kinoba/stall-kurone_koyamato.
 
 ## License
 
