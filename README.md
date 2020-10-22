@@ -60,6 +60,11 @@ You can find the route with :
 rake routes | grep payment/notify
 ```
 
+## TODO
+
+- Implement recurring payments
+- Add tests
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/Kinoba/stall-kurone_koyamato.
