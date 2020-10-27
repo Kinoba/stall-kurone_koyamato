@@ -3,7 +3,7 @@
 module Stall
   module KuroneKoyamato
     # Payment class for Kurone Koyamato
-    class Payment < Stall::KuroneKoyamato::PaymentSettings
+    class Payment
       TRS_MAP_FIXED_VALUE = 'V_W02'
       CREDIT_CARD_PAYMENT_METHOD = 0
       ONE_TIME_PAYMENT_SERVICE_CODE = '00'
@@ -33,10 +33,9 @@ module Stall
                     :buyer_email,
                     :option_service_code
 
-      # Override constructor to avoid loading a YAML file and use gateway's dynamic
-      # configuration instead
-      #
       def initialize(gateway, parse_urls: false)
+        @settings = {}
+
         @@access_key             = gateway.access_key
         @@trader_code            = gateway.trader_code
         # 0 is for credit card payments
@@ -83,6 +82,11 @@ module Stall
         else
           params.update(success: false)
         end
+      end
+
+      def load_params(payment)
+        required_params(payment)
+        optionnal_params(payment)
       end
 
       # Override this method to avoid implicit "EUR" currency appending
