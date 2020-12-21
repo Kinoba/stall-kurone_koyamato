@@ -63,7 +63,7 @@ module Stall
             regular_order_no: cart.reference,
             buyer_tel: cart.customer.shipping_address.phone,
             buyer_email: cart.customer.email,
-            buyer_name_kanji: "#{cart.customer.shipping_address.first_name} #{cart.customer.shipping_address.last_name}"
+            buyer_name_kanji: "#{cart.customer.shipping_address.last_name} #{cart.customer.shipping_address.first_name}"
           )
         end
 
